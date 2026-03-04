@@ -30,7 +30,11 @@ async function get(req, res) {
         const tasks = await Task.findAll({
             where: { userId },
         });
-        return res.json(tasks);
+        return res.json({
+            TotalMisTareas: tasks.length,
+            data: tasks
+        });
+        
     } catch (error) {
         logger.error(error);
         return res.json(error.message);
