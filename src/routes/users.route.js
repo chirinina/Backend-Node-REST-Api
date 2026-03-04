@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import create from '../controllers/user.controller.js';
 import { validate } from '../validators/validate.js';  
 import { createUserSchema } from '../validators/user.validate.js';
 import userController from '../controllers/user.controller.js';
+import { middlewareToken } from '../middleware/authenticate.middleware.js';
 
 const router = Router();
 
-router.route('/').get(userController.get)
-router.route('/:id').get(userController.find)
+router.route('/').get(middlewareToken, userController.get)
+router.route('/:id').get(middlewareToken, userController.find)
 router.route('/').post( validate(createUserSchema), userController.create)
-router.route('/:id').put(userController.update)
-router.route('/activateinactive/:id').patch(userController.activateinactive)
-router.route('/:id').delete(userController.remove)
+router.route('/:id').put(middlewareToken, userController.update)
+router.route('/activateinactive/:id').patch(middlewareToken, userController.activateinactive)
+router.route('/:id').delete(middlewareToken, userController.remove)
 export default router
