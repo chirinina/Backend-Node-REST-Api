@@ -25,6 +25,6 @@ export const Task = sequelize.define('Task', {
     },
     userId: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
+        allowNull: false
     },
 });

@@ -3,6 +3,7 @@ import { Task } from '../models/task.js';
 import { Status} from '../constans/index.js';
 import  logger from '../logs/logger.js';
 import { enbcryptar } from '../common/bcrypt.js';
+import { Model, where } from 'sequelize';
 
 async function create(req, res) {
   const { username, password } = req.body;
@@ -122,6 +123,33 @@ const activateinactive = async (req, res) => {
       return res.json({error});
     }
   }
+
+  const getTasks = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+
+    const user = await User.findOne({
+      attributes: ['username'],
+      include: [
+        {
+          model: Task,
+          attributes: ['name', 'done'],
+          where: { 
+            done: false
+          }
+        },
+      ],
+      where: { id },
+    });
+
+    return res.json(user);
+
+  } catch (error) {
+    logger.error(error);
+    return res.json({ error });
+  }
+};
     
 export default {
   create, 
@@ -129,6 +157,6 @@ export default {
   find,
   update,
   remove,
-  activateinactive
-
+  activateinactive,
+  getTasks
 }

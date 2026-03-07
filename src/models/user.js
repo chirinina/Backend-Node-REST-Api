@@ -36,21 +36,14 @@ export const User = sequelize.define('Users', {
 });
 
 
-/* realaciones Sequalize*/
-User.hasMany(Task);
-Task.belongsTo(User);
+/* relaciones Sequelize */
+User.hasMany(Task, {
+  foreignKey: "userId"
+});
 
-/* Camellcase
-/*
-User.hasMany(Task, 
-    { foreignKey: 'user_id',
-        sourceKey: 'id'
-     });
-Task.belongsTo(User, 
-    { foreignKey: 'user_id',
-        targetKey: 'id'
-    });*/
-
+Task.belongsTo(User, {
+  foreignKey: "userId"
+});
 User.beforeCreate(async (user) => {
     user.password = await enbcryptar(user.password);
 });

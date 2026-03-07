@@ -12,4 +12,6 @@ router.route('/').post( validate(createUserSchema), userController.create)
 router.route('/:id').put(middlewareToken, userController.update)
 router.route('/activateinactive/:id').patch(middlewareToken, userController.activateinactive)
 router.route('/:id').delete(middlewareToken, userController.remove)
+
+router.get('/:id/task', middlewareToken, userController.getTasks)
 export default router
