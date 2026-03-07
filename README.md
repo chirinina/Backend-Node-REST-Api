@@ -104,16 +104,6 @@ npm run build       # Compila el proyecto (si aplica)
 
 ---
 
-## 📁 Estructura básica
-
-```
-src/
- ├── index.js
- ├── routes/
- ├── models/
- └── config/
-```
-
 ---
 
 ## 📌 Notas
