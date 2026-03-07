@@ -6,7 +6,8 @@ const env = {
   db_user: process.env.DB_USER,
   db_password: process.env.DB_PASSWORD,
   db_database: process.env.DB_DATABASE,
-  db_dialect: process.env.DIALECT || 'mysql',
+  db_dialect: process.env.DIALECT,
+  db_use_ssl: process.env.DB_USE_SSL,
   bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
   jwt_secret: process.env.JWT_SECRET,
   jwt_expires_in: process.env.JWT_EXPIRES_IN
