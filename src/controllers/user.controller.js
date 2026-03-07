@@ -150,7 +150,53 @@ const activateinactive = async (req, res) => {
     return res.json({ error });
   }
 };
-    
+    async function pagination(req, res) {
+
+  try {
+
+    const {
+      page = 1,
+      limit = 10,
+      search = '',
+      orderBy = 'id',
+      orderDir = 'DESC'
+    } = req.query;
+
+    const offset = (page - 1) * limit;
+
+    const whereCondition = {};
+
+    if (search) {
+      whereCondition.username = {
+        [Op.iLike]: `%${search}%`
+      };
+    }
+
+    const users = await User.findAndCountAll({
+      attributes: ['id', 'username', 'status'],
+      where: whereCondition,
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+      order: [[orderBy, orderDir]]
+    });
+
+    const pages = Math.ceil(users.count / limit);
+
+    return res.json({
+      Total: users.count,
+      Paginacion: parseInt(page),
+      Limiteregistro: pages,
+      data: users.rows
+    });
+
+  } catch (error) {
+    logger.error(error);
+    return res.json({ error });
+  }
+
+}
+
+
 export default {
   create, 
   get,
@@ -158,5 +204,6 @@ export default {
   update,
   remove,
   activateinactive,
-  getTasks
+  getTasks,
+  pagination
 }

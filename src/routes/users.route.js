@@ -14,4 +14,6 @@ router.route('/activateinactive/:id').patch(middlewareToken, userController.acti
 router.route('/:id').delete(middlewareToken, userController.remove)
 
 router.get('/:id/task', middlewareToken, userController.getTasks)
+
+router.get('/list/pagination', middlewareToken, userController.pagination)
 export default router
