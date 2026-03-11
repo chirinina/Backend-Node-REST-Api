@@ -6,7 +6,7 @@ export function middlewareToken(req, res, next) {
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    return res.status(401).json({ error: 'Token no proporcionado' });
+    return res.status(401).json({ error: 'Inicia la Sesion¡¡¡ :(' });
   }
 
   try {
@@ -14,6 +14,9 @@ export function middlewareToken(req, res, next) {
     req.user = { userId: decoded.id };
     next();
   } catch (error) {
-    return res.status(403).json({ error: error.message });
+    if (error.name === 'TokenExpiredError') {
+      return res.status(401).json({ error: 'Debes iniciar sesión nuevamente' });
+    }
+    return res.status(403).json({ error: 'Token manipulado' });
   }
 }
