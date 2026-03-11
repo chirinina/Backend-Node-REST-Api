@@ -1,7 +1,8 @@
 # REST API Node.js
 
 ---
-
+Autor: Efrain Chiri Nina
+Cel: 71014010
 ## Requisitos
 
 Antes de ejecutar el proyecto asegúrate de tener instalado:
